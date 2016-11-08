@@ -24,17 +24,17 @@
 			osm = L.tileLayer(osmUrl, {maxZoom: 18, attribution: osmAttrib});
 
 		var map = L.map('map', {
-            rotate: true,
+            rotate: true
         }).addLayer(osm);
 
         map.setView([50.5, 30.51], 15)
-        map.setBearing(45);
+        map.setBearing(90);
 
 		var markers = new L.FeatureGroup();
 
 		function populate() {
 			for (var i = 0; i < 10; i++) {
-				L.marker(getRandomLatLng(map)).addTo(markers);
+				L.marker(getRandomLatLng(map),{title:"Tooltip"}).addTo(markers);
 			}
 			return false;
 		}

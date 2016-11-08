@@ -214,11 +214,18 @@ L.Popup = L.DivOverlay.extend({
 	_animateZoom: function (e) {
 		var pos = this._map._latLngToNewLayerPoint(this._latlng, e.zoom, e.center),
 		    anchor = this._getAnchor();
-		L.DomUtil.setPosition(this._container, pos.add(anchor));
+
+		if (this._map._rotate) {
+			var marginBottom = parseInt(L.DomUtil.getStyle(this._container, 'marginBottom'), 10) || 0;
+		  	var containerHeight = this._container.offsetHeight + marginBottom;
+            L.DomUtil.setPosition(this._container, pos.add(anchor).add([this._containerLeft, -containerHeight]), -this._map._bearing || 0, pos);
+        } else {
+            L.DomUtil.setPosition(this._container, pos.add(anchor));
+        }
 	},
 
 	_adjustPan: function () {
-		if (!this.options.autoPan || (this._map._panAnim && this._map._panAnim._inProgress)) { return; }
+		if (this._map._rotate || !this.options.autoPan || (this._map._panAnim && this._map._panAnim._inProgress)) { return; }
 
 		var map = this._map,
 		    marginBottom = parseInt(L.DomUtil.getStyle(this._container, 'marginBottom'), 10) || 0,

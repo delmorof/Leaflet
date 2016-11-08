@@ -174,20 +174,28 @@ L.DivOverlay = L.Layer.extend({
 
 		var pos = this._map.latLngToLayerPoint(this._latlng),
 		    offset = L.point(this.options.offset),
-		    anchor = this._getAnchor();
+		    anchor = this._getAnchor();		
 
 		if (this._zoomAnimated) {
 			L.DomUtil.setPosition(this._container, pos.add(anchor));
-		} else {
+			//L.DomUtil.setPosition(this._container, pos.add(anchor).add([left, -containerHeight]), -this._map._bearing || 0,  pos);
+		}  else {
 			offset = offset.add(pos).add(anchor);
 		}
 
 		var bottom = this._containerBottom = -offset.y,
 		    left = this._containerLeft = -Math.round(this._containerWidth / 2) + offset.x;
-
-		// bottom position the popup in case the height of the popup changes (images loading etc)
-		this._container.style.bottom = bottom + 'px';
-		this._container.style.left = left + 'px';
+		
+		if (this._map._rotate){
+			var marginBottom = parseInt(L.DomUtil.getStyle(this._container, 'marginBottom'), 10) || 0;
+		  	var containerHeight = this._container.offsetHeight + marginBottom;
+			var tr_pnt = pos.add(anchor).add([left, -containerHeight]);
+			L.DomUtil.setTransform(this._container, tr_pnt, undefined,  -this._map._bearing || 0,  pos);	
+		} else {
+			// bottom position the popup in case the height of the popup changes (images loading etc)
+			this._container.style.bottom = bottom + 'px';
+			this._container.style.left = left + 'px';
+		}
 	},
 
 	_getAnchor: function () {
