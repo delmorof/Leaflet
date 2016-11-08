@@ -34,7 +34,7 @@
 
 		function populate() {
 			for (var i = 0; i < 10; i++) {
-				L.marker(getRandomLatLng(map),{title:"Tooltip"}).addTo(markers);
+				L.marker(getRandomLatLng(map),{title:"Tooltip", draggable:true}).addTo(markers);
 			}
 			return false;
 		}

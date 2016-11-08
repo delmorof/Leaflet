@@ -50,10 +50,12 @@ L.DivOverlay = L.Layer.extend({
 			L.DomUtil.setOpacity(this._container, 1);
 		}
 
+		map.on('rotate', this.update, this);
 		this.bringToFront();
 	},
 
 	onRemove: function (map) {
+		map.off('rotate', this.update, this);
 		if (map._fadeAnimated) {
 			L.DomUtil.setOpacity(this._container, 0);
 			this._removeTimeout = setTimeout(L.bind(L.DomUtil.remove, L.DomUtil, this._container), 200);
