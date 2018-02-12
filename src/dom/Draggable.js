@@ -148,11 +148,11 @@ L.Draggable = L.Evented.extend({
 		}
 
 		var map = this._marker && this._marker._map ? this._marker._map : null;
-		if(map && map._rotate){
+		if (map && map._rotate) {
 			offset = offset.rotate(-map._bearing);
 		}
 
-		this._newPos = this._startPos.add(offset);		 
+		this._newPos = this._startPos.add(offset);
 		this._moving = true;
 
 		L.Util.cancelAnimFrame(this._animRequest);
@@ -169,7 +169,7 @@ L.Draggable = L.Evented.extend({
 		this.fire('predrag', e);
 		var map = this._marker && this._marker._map ? this._marker._map : null;
 		var icon = this._marker && this._marker.options && this._marker.options.icon ? this._marker.options.icon : null;
-		if(map && map._rotate){
+		if (map && map._rotate) {
 			var anchor = icon && icon.options && icon.options.iconAnchor || new L.Point(0, 0);
 			L.DomUtil.setPosition(this._element, this._newPos, -map._bearing || 0,  this._newPos.add(anchor));
 		} else {

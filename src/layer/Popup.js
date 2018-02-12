@@ -217,11 +217,11 @@ L.Popup = L.DivOverlay.extend({
 
 		if (this._map._rotate) {
 			var marginBottom = parseInt(L.DomUtil.getStyle(this._container, 'marginBottom'), 10) || 0;
-		  	var containerHeight = this._container.offsetHeight + marginBottom;
-            L.DomUtil.setPosition(this._container, pos.add(anchor).add([this._containerLeft, -containerHeight]), -this._map._bearing || 0, pos);
-        } else {
-            L.DomUtil.setPosition(this._container, pos.add(anchor));
-        }
+			var containerHeight = this._container.offsetHeight + marginBottom;
+			L.DomUtil.setPosition(this._container, pos.add(anchor).add([this._containerLeft, -containerHeight]), -this._map._bearing || 0, pos);
+		} else {
+			L.DomUtil.setPosition(this._container, pos.add(anchor));
+		}
 	},
 
 	_adjustPan: function () {

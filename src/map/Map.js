@@ -442,9 +442,18 @@ L.Map = L.Evented.extend({
 			this.fire('unload');
 		}
 
-		for (var i in this._layers) {
+		var i;
+		for (i in this._layers) {
 			this._layers[i].remove();
 		}
+		for (i in this._panes) {
+			L.DomUtil.remove(this._panes[i]);
+		}
+
+		this._layers = [];
+		this._panes = [];
+		delete this._mapPane;
+		delete this._renderer;
 
 		return this;
 	},

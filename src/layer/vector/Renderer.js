@@ -50,8 +50,8 @@ L.Renderer = L.Layer.extend({
 	},
 
 	onRemove: function () {
-		L.DomUtil.remove(this._container);
 		this._map.off('rotate', this._update, this);
+		this._destroyContainer();
 	},
 
 	getEvents: function () {
